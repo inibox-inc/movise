@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultmessages='false' b:layoutsVersion='3' b:responsive='true' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+    <meta content='width=device-width,initial-scale=1' name='viewport'/>
+    <title><data:blog.pageTitle/></title>
+    <b:skin><![CDATA[
+        /* ==========================================
+        movise v2.0.1
+        Copyright (c) 2026 movise. Todos los derechos reservados.
+        PLANTILLA 100% LIMPIA PARA BLOGGER (SIN AUTO-CODE)
+        ========================================== */
+        ]]></b:skin>
+</head>
+<body>
+<!-- Seccion contenedora obligatoria de Blogger -->
+<b:section class='main' id='main' showaddelement='yes'>
+    <!-- Widget de tipo HTML: No genera código adicional ni scripts pesados al guardar -->
+    <b:widget id='HTML1' locked='true' title='Lienzo en Blanco' type='HTML' version='1'>
+        <b:includable id='main'>
+            <!-- Escribe tu HTML y diseño libre aquí -->
+        </b:includable>
+    </b:widget>
+</b:section>
+</body>
+</html>

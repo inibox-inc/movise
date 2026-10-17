@@ -1,0 +1,74 @@
+/* ==========================================
+   movise v2.0.1
+   Copyright (c) 2026 movise. Todos los derechos reservados.
+   Plantilla de entrada: Serie
+   ========================================== */
+
+const title = "Título de la Serie";
+const alternative_titles = "Título Alternativo 1, Título Alternativo 2";
+const sinopsis = "Escribe aquí la sinopsis o descripción completa de la serie.";
+const poster = "https://image.tmdb.org/t/p/w500/TU_POSTER.jpg";
+const backdrop = "https://image.tmdb.org/t/p/original/TU_BACKDROP.jpg";
+const duration = "45m";
+const genres = ["Drama", "Romance", "Corea"];
+const category = "Serie";
+const rating = "9.0";
+const trailer = "https://www.youtube.com/embed/TU_TRAILER";
+
+const seasons = [
+    {
+        season: 1,
+        episodes: [
+            {
+                episode: 1,
+                title: "Comienzo",
+                backdrop: "https://image.tmdb.org/t/p/w500/TU_EP1_BACKDROP.jpg",
+                servers: [
+                    {
+                        server: "Streamwish",
+                        language: "1",
+                        type: "Sin anuncios",
+                        url: "https://tu-servidor.com/embed/t1-ep1-srv1"
+                    },
+                    {
+                        server: "Filemoon",
+                        language: "2",
+                        type: "Premium",
+                        url: "https://tu-servidor.com/embed/t1-ep1-srv2"
+                    }
+                ]
+            },
+            {
+                episode: 2,
+                title: "El encuentro",
+                backdrop: "https://image.tmdb.org/t/p/w500/TU_EP2_BACKDROP.jpg",
+                servers: [
+                    {
+                        server: "Streamwish",
+                        language: "1",
+                        type: "Sin anuncios",
+                        url: "https://tu-servidor.com/embed/t1-ep2-srv1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        season: 2,
+        episodes: [
+            {
+                episode: 1,
+                title: "Nuevo ciclo",
+                backdrop: "https://image.tmdb.org/t/p/w500/TU_T2_EP1_BACKDROP.jpg",
+                servers: [
+                    {
+                        server: "Streamwish",
+                        language: "3",
+                        type: "Sin anuncios",
+                        url: "https://tu-servidor.com/embed/t2-ep1-srv1"
+                    }
+                ]
+            }
+        ]
+    }
+];
