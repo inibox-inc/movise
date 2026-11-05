@@ -92,7 +92,7 @@ Antes o después de pegar el código en AppCreator24, puedes personalizar los si
 Busca la función `loadContent()` en `movise-template.html` y reemplaza `https://movi-se.blogspot.com/` por la URL de tu propio blog:
 
 ```javascript
-const apiKey = 'AIzaSyDr0Dt0pwLY9vgxVGK4e1O3Q9GjNYko4s4';
+const apiKey = 'AIzaSyDr0Dt0pwLY9vgxVGK4exxxxxxxxxxxx';
 
 // Reemplaza la URL por la dirección de tu blog de Blogger
 const blogUrlRes = await fetch(`https://www.googleapis.com/blogger/v3/blogs/byurl?url=https://tu-blog.blogspot.com/&key=${apiKey}`);
