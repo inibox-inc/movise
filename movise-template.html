@@ -10,7 +10,12 @@ Plantilla de películas y series.
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>movise</title>
+    <title>KissKR — Dramas & Novels</title>
+    <!-- Favicon Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon_io/favicon.ico">
     <!-- Material Design Icons and Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -315,8 +320,80 @@ Plantilla de películas y series.
             }
         }
 
+        /* --- Skeleton Loading Styles --- */
+        .skeleton-card {
+            background-color: var(--surface-color);
+            border-radius: 4px;
+            overflow: hidden;
+            aspect-ratio: 2 / 3;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.03) 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                rgba(255, 255, 255, 0.03) 100%
+            );
+            background-size: 200% 100%;
+            animation: skeleton-wave 1.5s ease-in-out infinite;
+        }
+
+        .skeleton-shimmer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            animation: skeleton-wave 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .skeleton-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 32px;
+            height: 16px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .skeleton-year {
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            width: 34px;
+            height: 15px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        @keyframes skeleton-wave {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
         .poster-card {
             background-color: var(--surface-color);
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0.02) 0%,
+                rgba(255, 255, 255, 0.06) 50%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            background-size: 200% 100%;
+            animation: skeleton-wave 1.5s ease-in-out infinite;
             border-radius: 4px;
             overflow: hidden;
             aspect-ratio: 2 / 3;
@@ -331,6 +408,9 @@ Plantilla de películas y series.
             height: 100%;
             object-fit: cover;
             display: block;
+            position: relative;
+            z-index: 1;
+            transition: opacity 0.25s ease;
         }
 
         .poster-flags {
@@ -591,16 +671,143 @@ Plantilla de películas y series.
             margin: 16px 0 8px 0;
         }
 
+        /* --- Details Navigation Menu --- */
+        .details-nav-menu {
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            margin: 16px 0 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-color);
+            z-index: 15;
+            box-sizing: border-box;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .details-nav-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px 8px;
+            cursor: pointer;
+            position: relative;
+            border-radius: 6px 6px 0 0;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.3px;
+        }
+
+        .details-nav-tab:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.06);
+        }
+
+        .details-nav-tab.active {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .details-nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .details-nav-tab.active::after {
+            transform: scaleX(1);
+        }
+
+        .details-nav-tab:hover:not(.active)::after {
+            transform: scaleX(0.4);
+            background-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .details-tab-content {
+            animation: fadeInTab 0.25s ease;
+        }
+
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- About / Acerca de Styles --- */
+        .details-about-container {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .about-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (min-width: 600px) {
+            .about-row {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .about-label {
+                width: 170px;
+                flex-shrink: 0;
+            }
+        }
+
+        .about-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .about-value {
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
         .details-synopsis {
             padding: 0 16px;
             font-size: 14px;
             line-height: 1.6;
             color: var(--text-secondary);
-            text-align: justify;
+            text-align: left;
         }
 
         .episodes-container {
-            padding: 16px;
+            padding: 0 16px;
         }
 
         .season-btn {
@@ -617,59 +824,77 @@ Plantilla de películas y series.
         }
 
         .episodes-panel {
-            padding: 8px 0;
-            display: block;
+            padding: 10px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
         }
 
-        .episode-row {
-            background-color: #333;
-            padding: 10px 14px;
-            margin-bottom: 6px;
-            border-radius: 6px;
+        @media (min-width: 600px) {
+            .episodes-panel {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .episodes-panel {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .episode-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
             cursor: pointer;
-            gap: 12px;
-        }
-
-        .episode-row:hover {
-            background-color: #444;
-        }
-
-        .episode-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-            min-width: 0;
         }
 
         .episode-thumb {
-            width: 80px;
-            height: 46px;
-            border-radius: 4px;
-            object-fit: cover;
-            flex-shrink: 0;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 6px;
+            overflow: hidden;
             background-color: #222;
         }
 
-        .episode-title {
-            font-size: 14px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .episode-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        .play-btn-circle {
-            background-color: var(--primary-color);
-            color: #000;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
+        .episode-number-text {
+            position: absolute;
+            bottom: 8px;
+            left: 10px;
+            font-size: 1.3em;
+            color: #ffffff;
+            background: none;
+            border: none;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95);
+            z-index: 2;
+            line-height: 1;
+        }
+
+        .episode-duration-text {
+            margin-top: 4px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+        }
+
+        .episode-progress-left,
+        .episode-duration-right {
+            background: none;
+            border: none;
+            padding: 0;
         }
 
         .movie-play-container {
@@ -1137,6 +1362,332 @@ Plantilla de películas y series.
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
 
+        /* --- Firebase Auth Modal Styles --- */
+        .auth-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.78);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            padding: 16px;
+            overflow-y: auto;
+        }
+
+        .auth-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .auth-modal {
+            background: var(--surface-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px 20px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transform: translateY(12px) scale(0.97);
+            transition: transform 0.25s ease;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        .auth-modal-overlay.active .auth-modal {
+            transform: translateY(0) scale(1);
+        }
+
+        .auth-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .auth-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .auth-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-close-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 18px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .auth-tab.active {
+            background: var(--primary-color);
+            color: #000;
+        }
+
+        .auth-alert {
+            display: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+
+        .auth-alert.error {
+            display: block;
+            background: rgba(248, 113, 113, 0.15);
+            border: 1px solid rgba(248, 113, 113, 0.4);
+            color: #fca5a5;
+        }
+
+        .auth-alert.success {
+            display: block;
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.4);
+            color: #86efac;
+        }
+
+        .auth-alert.info {
+            display: block;
+            background: rgba(187, 134, 252, 0.15);
+            border: 1px solid rgba(187, 134, 252, 0.4);
+            color: #e9d5ff;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .auth-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .auth-field label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .auth-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-input {
+            width: 100%;
+            background: #141414;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 12px 14px;
+            color: var(--text-color);
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .auth-input-wrapper .auth-input {
+            padding-right: 44px;
+        }
+
+        .auth-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .auth-pwd-toggle {
+            position: absolute;
+            right: 8px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .auth-pwd-toggle:hover {
+            color: var(--text-color);
+        }
+
+        .pwd-requirements {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pwd-requirements-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .pwd-req-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #9ca3af;
+            transition: color 0.2s;
+        }
+
+        .pwd-req-item i {
+            font-size: 15px;
+            color: #6b7280;
+            transition: color 0.2s;
+        }
+
+        .pwd-req-item.met {
+            color: #86efac;
+        }
+
+        .pwd-req-item.met i {
+            color: #4ade80;
+        }
+
+        .auth-forgot-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -4px;
+        }
+
+        .auth-forgot-btn {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 13px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .auth-forgot-btn:hover {
+            text-decoration: underline;
+        }
+
+        .auth-submit-btn {
+            background: var(--primary-color);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-secondary-btn {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-color);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 11px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 0;
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-google-btn {
+            width: 100%;
+            background: #ffffff;
+            color: #1f1f1f;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s;
+        }
+
+        .auth-google-btn:hover {
+            background: #f1f1f1;
+        }
+
+        .auth-google-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -1153,6 +1704,7 @@ Plantilla de películas y series.
             <i class="material-icons-round">more_vert</i>
         </button>
         <div class="more-modal" id="moreModal">
+            <div class="more-modal-item" id="authMenuBtn" onclick="handleAuthMenuClick()">Iniciar sesión</div>
             <div class="more-modal-item" id="shareAppBtn">Compartir app</div>
             <div class="more-modal-item" id="settingsBtn">Configuración</div>
         </div>
@@ -1161,11 +1713,11 @@ Plantilla de películas y series.
     <div class="overlay" id="overlay"></div>
 
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header" onclick="window.open('https://t.me/movise', '_blank')" style="cursor: pointer; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; height: auto; padding: 24px 16px; background: linear-gradient(135deg, rgba(187, 134, 252, 0.15), rgba(0,0,0,0.5)); border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <img src="https://www.udrop.com/file/OppW/Nk_20260319_135610_0000.png" alt="movise" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-right: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.5);">
+        <div class="sidebar-header" id="sidebarHeader" onclick="handleSidebarHeaderClick()" title="Toca para asignar un usuario aleatorio" style="cursor: pointer; display: flex; flex-direction: row; align-items: center; justify-content: flex-start; height: auto; padding: 24px 16px; background: linear-gradient(135deg, rgba(187, 134, 252, 0.15), rgba(0,0,0,0.5)); border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <img id="sidebarUserAvatar" src="https://api.dicebear.com/9.x/bottts/svg?seed=User" alt="Usuario" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; margin-right: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); background: rgba(255,255,255,0.06);">
             <div class="user-info">
-                <div class="user-name" style="font-size: 18px; font-weight: 700;">movise</div>
-                <div class="user-email" style="font-size: 14px; margin-top: 4px; color: var(--text-secondary);">@movise</div>
+                <div class="user-name" id="sidebarUserName" style="font-size: 18px; font-weight: 700;"></div>
+                <div class="user-email" id="sidebarUserEmail" style="font-size: 14px; margin-top: 4px; color: var(--text-secondary); display: none;"></div>
             </div>
         </div>
 
@@ -1222,7 +1774,22 @@ Plantilla de películas y series.
         </div>
 
         <div class="content-grid" id="contentGrid">
-            <div class="loader"><i class="material-icons-round">refresh</i></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
+            <div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>
         </div>
 
         <div class="details-container" id="detailsContainer"></div>
@@ -1306,6 +1873,122 @@ Plantilla de películas y series.
         </button>
         <iframe id="playerIframe" allowfullscreen allow="autoplay; encrypted-media"></iframe>
     </div>
+
+    <!-- Firebase Auth Modal -->
+    <div class="auth-modal-overlay" id="authModalOverlay">
+        <div class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+            <div class="auth-modal-header">
+                <h2 class="auth-modal-title" id="authModalTitle">Iniciar Sesión</h2>
+                <button type="button" class="auth-close-btn" id="authModalCloseBtn" onclick="closeAuthModal()" aria-label="Cerrar">
+                    <i class="material-icons-round">close</i>
+                </button>
+            </div>
+
+            <div class="auth-tabs" id="authTabs">
+                <button type="button" class="auth-tab active" data-auth-tab="signin" onclick="switchAuthTab('signin')">Iniciar Sesión</button>
+                <button type="button" class="auth-tab" data-auth-tab="signup" onclick="switchAuthTab('signup')">Registrarse</button>
+            </div>
+
+            <div class="auth-alert" id="authAlert" role="alert"></div>
+
+            <!-- Formulario de Inicio de Sesión -->
+            <form id="signInForm" class="auth-form">
+                <div class="auth-field">
+                    <label for="signin-email">Correo electrónico</label>
+                    <input type="email" id="signin-email" name="email" class="auth-input" autocomplete="username" enterkeyhint="next" placeholder="tu@correo.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="current-password">Contraseña</label>
+                    <div class="auth-input-wrapper">
+                        <input type="password" id="current-password" name="password" class="auth-input" autocomplete="current-password" enterkeyhint="done" placeholder="Tu contraseña" required>
+                        <button type="button" class="auth-pwd-toggle" onclick="togglePasswordVisibility('current-password', this)" aria-label="Mostrar u ocultar contraseña">
+                            <i class="material-icons-round">visibility</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="auth-forgot-row">
+                    <button type="button" class="auth-forgot-btn" onclick="handleForgotPassword()">¿Olvidaste tu contraseña?</button>
+                </div>
+                <button type="submit" class="auth-submit-btn" id="signInSubmitBtn">
+                    <span>Iniciar Sesión</span>
+                </button>
+            </form>
+
+            <!-- Formulario de Registro -->
+            <form id="signUpForm" class="auth-form" style="display: none;">
+                <div class="auth-field">
+                    <label for="signup-email">Correo electrónico</label>
+                    <input type="email" id="signup-email" name="email" class="auth-input" autocomplete="username" enterkeyhint="next" placeholder="tu@correo.com" required>
+                </div>
+                <div class="auth-field">
+                    <label for="new-password">Contraseña</label>
+                    <div class="auth-input-wrapper">
+                        <input type="password" id="new-password" name="new-password" class="auth-input" autocomplete="new-password" enterkeyhint="done" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Mínimo 8 caracteres, incluyendo mayúscula, minúscula, número y carácter especial" placeholder="Mínimo 8 caracteres" required>
+                        <button type="button" class="auth-pwd-toggle" onclick="togglePasswordVisibility('new-password', this)" aria-label="Mostrar u ocultar contraseña">
+                            <i class="material-icons-round">visibility</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="pwd-requirements" id="signupPwdReqs">
+                    <div class="pwd-requirements-title">Requisitos de la contraseña:</div>
+                    <div class="pwd-req-item" data-req="length"><i class="material-icons-round">radio_button_unchecked</i><span>Longitud mínima de 8 caracteres</span></div>
+                    <div class="pwd-req-item" data-req="upper"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos una letra mayúscula (A-Z)</span></div>
+                    <div class="pwd-req-item" data-req="lower"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos una letra minúscula (a-z)</span></div>
+                    <div class="pwd-req-item" data-req="number"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos un carácter numérico (0-9)</span></div>
+                    <div class="pwd-req-item" data-req="special"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos un carácter especial (!@#$%^&*...)</span></div>
+                </div>
+                <button type="submit" class="auth-submit-btn" id="signUpSubmitBtn">
+                    <span>Crear Cuenta</span>
+                </button>
+            </form>
+
+            <!-- Formulario para Forzar la Actualización de Contraseña Durante el Acceso -->
+            <form id="updatePasswordForm" class="auth-form" style="display: none;">
+                <div class="auth-field">
+                    <label for="update-new-password">Nueva contraseña segura</label>
+                    <div class="auth-input-wrapper">
+                        <input type="password" id="update-new-password" name="new-password" class="auth-input" autocomplete="new-password" enterkeyhint="done" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}" title="Mínimo 8 caracteres, incluyendo mayúscula, minúscula, número y carácter especial" placeholder="Ingresa tu nueva contraseña" required>
+                        <button type="button" class="auth-pwd-toggle" onclick="togglePasswordVisibility('update-new-password', this)" aria-label="Mostrar u ocultar contraseña">
+                            <i class="material-icons-round">visibility</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="pwd-requirements" id="updatePwdReqs">
+                    <div class="pwd-requirements-title">Requisitos obligatorios:</div>
+                    <div class="pwd-req-item" data-req="length"><i class="material-icons-round">radio_button_unchecked</i><span>Longitud mínima de 8 caracteres</span></div>
+                    <div class="pwd-req-item" data-req="upper"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos una letra mayúscula (A-Z)</span></div>
+                    <div class="pwd-req-item" data-req="lower"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos una letra minúscula (a-z)</span></div>
+                    <div class="pwd-req-item" data-req="number"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos un carácter numérico (0-9)</span></div>
+                    <div class="pwd-req-item" data-req="special"><i class="material-icons-round">radio_button_unchecked</i><span>Al menos un carácter especial (!@#$%^&*...)</span></div>
+                </div>
+                <button type="submit" class="auth-submit-btn" id="updatePwdSubmitBtn">
+                    <span>Actualizar Contraseña y Continuar</span>
+                </button>
+                <button type="button" class="auth-secondary-btn" onclick="cancelForcedPasswordUpdate()">
+                    Cancelar y cerrar sesión
+                </button>
+            </form>
+
+            <!-- Acceso con Google -->
+            <div id="googleAuthSection">
+                <div class="auth-divider">o continúa con</div>
+                <button type="button" class="auth-google-btn" id="googleSignInBtn" onclick="signInWithGoogle()">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    <span>Continuar con Google</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
     <script>
         // Safe storage wrapper to prevent crashes in sandboxed iframes (e.g. AI Studio preview)
@@ -1399,13 +2082,16 @@ Plantilla de películas y series.
             if (idx === -1) {
                 favs.push(currentContent.id);
                 safeStorage.setItem('favoritos', JSON.stringify(favs));
-                alert('Añadido a favoritos');
+                showAppToast('Añadido a favoritos');
             } else {
                 favs.splice(idx, 1);
                 safeStorage.setItem('favoritos', JSON.stringify(favs));
-                alert('Eliminado de favoritos');
+                showAppToast('Eliminado de favoritos');
             }
             updateFavoriteButton();
+            if (typeof syncFavoritesToFirebase === 'function') {
+                syncFavoritesToFirebase(favs);
+            }
         };
 
         function updateFavoriteButton() {
@@ -1413,7 +2099,7 @@ Plantilla de películas y series.
             if (btn && currentContent) {
                 const favs = getFavorites();
                 const isFav = favs.includes(currentContent.id);
-                btn.innerHTML = `<i class="material-icons-round">${isFav ? 'favorite' : 'favorite_border'}</i>`;
+                btn.innerHTML = `<i class="material-icons-round">${isFav ? 'check' : 'add'}</i>`;
             }
         }
 
@@ -1546,7 +2232,7 @@ Plantilla de películas y series.
             const allButtons = document.querySelectorAll('.season-btn');
             const targetPanel = document.getElementById(panelId);
 
-            const isCurrentlyOpen = targetPanel.style.display === 'block';
+            const isCurrentlyOpen = targetPanel.style.display !== 'none';
 
             allPanels.forEach(panel => {
                 panel.style.display = 'none';
@@ -1556,7 +2242,7 @@ Plantilla de películas y series.
             });
 
             if (!isCurrentlyOpen) {
-                targetPanel.style.display = 'block';
+                targetPanel.style.display = 'grid';
                 button.querySelector('i').textContent = 'expand_less';
             }
         };
@@ -1615,6 +2301,14 @@ Plantilla de películas y series.
             return flags;
         }
 
+        function renderSkeletons(count = 16) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += '<div class="skeleton-card"><div class="skeleton-shimmer"></div><div class="skeleton-badge"></div><div class="skeleton-year"></div></div>';
+            }
+            return html;
+        }
+
         function renderPosterCard(item) {
             const imgStr = item.poster_url || 'https://via.placeholder.com/300x450/1a1a1a/888?text=Poster';
             const flags = getItemFlags(item);
@@ -1633,7 +2327,7 @@ Plantilla de películas y series.
                     ${flagsHtml}
                     ${ratingHtml}
                     ${yearHtml}
-                    <img src="${imgStr}" alt="${item.titulo}" onerror="this.src='https://via.placeholder.com/300x450/1a1a1a/888?text=Poster'">
+                    <img src="${imgStr}" alt="${item.titulo}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x450/1a1a1a/888?text=Poster'">
                 </div>
             `;
         }
@@ -1684,17 +2378,312 @@ Plantilla de películas y series.
             }, 800);
         };
 
-        window.openPlayer = function(url) {
+        // --- Guardado y continuación de reproducción ---
+        let activePlaybackContext = null;
+        let playbackInterval = null;
+
+        function getPlaybackMap() {
+            try {
+                return JSON.parse(safeStorage.getItem('movise_playback') || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function getPlaybackKey(type, contentId, seasonNum, episodeIdx) {
+            if (type === 'movie') {
+                return `movie_${contentId}`;
+            }
+            return `serie_${contentId}_s${seasonNum}_e${episodeIdx}`;
+        }
+
+        function getPlaybackProgress(type, contentId, seasonNum, episodeIdx) {
+            const map = getPlaybackMap();
+            const key = getPlaybackKey(type, contentId, seasonNum, episodeIdx);
+            return map[key] || null;
+        }
+
+        function savePlaybackProgress(key, data) {
+            const map = getPlaybackMap();
+            map[key] = data;
+            safeStorage.setItem('movise_playback', JSON.stringify(map));
+        }
+
+        function formatPlaybackTime(seconds) {
+            const sec = Math.max(0, Math.floor(Number(seconds) || 0));
+            const h = Math.floor(sec / 3600);
+            const m = Math.floor((sec % 3600) / 60);
+            const s = sec % 60;
+            if (h > 0) {
+                return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            }
+            return `${m}:${String(s).padStart(2, '0')}`;
+        }
+
+        function parseDurationToSeconds(str) {
+            if (!str || str === 'N/A') return 0;
+            if (typeof str === 'number') return str;
+            const s = String(str).trim().toLowerCase();
+            if (/^\d+:\d{1,2}(:\d{1,2})?$/.test(s)) {
+                const parts = s.split(':').map(Number);
+                if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+                if (parts.length === 2) return parts[0] * 60 + parts[1];
+            }
+            let total = 0;
+            const hMatch = s.match(/(\d+)\s*h/);
+            const mMatch = s.match(/(\d+)\s*m/);
+            const sMatch = s.match(/(\d+)\s*s/);
+            if (hMatch || mMatch || sMatch) {
+                if (hMatch) total += parseInt(hMatch[1], 10) * 3600;
+                if (mMatch) total += parseInt(mMatch[1], 10) * 60;
+                if (sMatch) total += parseInt(sMatch[1], 10);
+                return total;
+            }
+            const num = parseFloat(s);
+            if (!isNaN(num) && num > 0) {
+                return num * 60;
+            }
+            return 0;
+        }
+
+        function probeVideoDuration(url) {
+            return new Promise((resolve) => {
+                if (!url) return resolve(0);
+                const tempVideo = document.createElement('video');
+                tempVideo.preload = 'metadata';
+                let resolved = false;
+                const finish = (dur) => {
+                    if (resolved) return;
+                    resolved = true;
+                    tempVideo.removeAttribute('src');
+                    tempVideo.load();
+                    resolve(dur && isFinite(dur) && dur > 0 ? dur : 0);
+                };
+                const timer = setTimeout(() => finish(0), 8000);
+                tempVideo.onloadedmetadata = () => {
+                    clearTimeout(timer);
+                    finish(tempVideo.duration);
+                };
+                tempVideo.onerror = () => {
+                    clearTimeout(timer);
+                    finish(0);
+                };
+                tempVideo.src = url;
+            });
+        }
+
+        function applyResumeToUrl(url, resumeSeconds) {
+            const sec = Math.floor(Number(resumeSeconds) || 0);
+            if (!url || sec <= 0) return url;
+            if (url.includes('#t=')) return url;
+            if (url.includes('#')) return url;
+            return `${url}#t=${sec}`;
+        }
+
+        function sendSeekToIframe(iframe, seconds) {
+            const sec = Math.floor(Number(seconds) || 0);
+            if (!iframe || !iframe.contentWindow || sec <= 0) return;
+            try {
+                iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [sec, true] }), '*');
+                iframe.contentWindow.postMessage(JSON.stringify({ method: 'setCurrentTime', value: sec }), '*');
+                iframe.contentWindow.postMessage({ api: 'seek', set: sec }, '*');
+                iframe.contentWindow.postMessage({ type: 'seek', time: sec, currentTime: sec }, '*');
+            } catch (e) {}
+        }
+
+        window.addEventListener('message', (e) => {
+            if (!activePlaybackContext) return;
+            let data = e.data;
+            if (typeof data === 'string') {
+                try { data = JSON.parse(data); } catch (err) { return; }
+            }
+            if (!data || typeof data !== 'object') return;
+
+            const dur = Number(data.duration || (data.info && data.info.duration) || (data.data && data.data.duration) || 0);
+            if (dur > 0 && isFinite(dur)) {
+                activePlaybackContext.duration = dur;
+            }
+
+            const cur = Number(
+                data.currentTime !== undefined ? data.currentTime :
+                data.time !== undefined ? data.time :
+                data.seconds !== undefined ? data.seconds :
+                (data.info && data.info.currentTime !== undefined) ? data.info.currentTime :
+                (data.data && data.data.currentTime !== undefined) ? data.data.currentTime : NaN
+            );
+            if (!isNaN(cur) && cur >= 0 && isFinite(cur)) {
+                activePlaybackContext.currentTime = cur;
+                activePlaybackContext.lastExternalUpdate = Date.now();
+            }
+
+            const evt = String(data.event || data.type || '').toLowerCase();
+            if (evt === 'ended' || evt === 'complete' || evt === 'finish') {
+                activePlaybackContext.completed = true;
+                activePlaybackContext.currentTime = 0;
+            }
+        });
+
+        function persistActivePlayback() {
+            if (!activePlaybackContext) return;
+            const ctx = activePlaybackContext;
+            if (ctx.duration > 0 && ctx.currentTime >= ctx.duration - 2) {
+                ctx.completed = true;
+                ctx.currentTime = 0;
+            }
+            savePlaybackProgress(ctx.key, {
+                currentTime: ctx.completed ? 0 : Math.floor(ctx.currentTime),
+                duration: Math.floor(ctx.duration || 0),
+                completed: Boolean(ctx.completed)
+            });
+        }
+
+        function updatePlaybackUI() {
+            if (!currentContent) return;
+            if (currentContent._baseType === 'movie') {
+                const btn = document.getElementById('movieMainPlayBtn');
+                if (btn) {
+                    const prog = getPlaybackProgress('movie', currentContent.id);
+                    if (prog && !prog.completed && prog.currentTime > 0) {
+                        btn.innerHTML = `<i class="material-icons-round">play_arrow</i> Continuar ${formatPlaybackTime(prog.currentTime)}`;
+                    } else {
+                        btn.innerHTML = `<i class="material-icons-round">play_arrow</i> Ver película`;
+                    }
+                }
+            } else if (currentContent.seasons) {
+                Object.keys(currentContent.seasons).forEach(seasonNum => {
+                    const epList = currentContent.seasons[seasonNum] || [];
+                    epList.forEach((ep, idx) => {
+                        const progEl = document.getElementById(`ep-progress-${seasonNum}-${idx}`);
+                        const durEl = document.getElementById(`ep-duration-${seasonNum}-${idx}`);
+                        const prog = getPlaybackProgress('serie', currentContent.id, seasonNum, idx);
+                        if (progEl) {
+                            if (prog && prog.completed) {
+                                progEl.textContent = 'EN 100%';
+                            } else if (prog && prog.currentTime > 0) {
+                                progEl.textContent = formatPlaybackTime(prog.currentTime);
+                            } else {
+                                progEl.textContent = '';
+                            }
+                        }
+                        if (durEl && !durEl.textContent.trim() && prog && prog.duration > 0) {
+                            durEl.textContent = formatPlaybackTime(prog.duration);
+                        }
+                    });
+                });
+            }
+        }
+
+        window.openPlayer = function(url, isTrailer = false) {
             const playerView = document.getElementById('playerView');
             const playerIframe = document.getElementById('playerIframe');
-            playerIframe.src = url;
+
+            if (playbackInterval) {
+                clearInterval(playbackInterval);
+                playbackInterval = null;
+            }
+
+            if (isTrailer) {
+                activePlaybackContext = null;
+                playerIframe.src = url;
+                playerView.classList.add('active');
+                closeServersModal();
+                return;
+            }
+
+            let resumeSeconds = 0;
+            if (activePlaybackContext) {
+                const existing = getPlaybackProgress(
+                    activePlaybackContext.type,
+                    activePlaybackContext.contentId,
+                    activePlaybackContext.seasonNum,
+                    activePlaybackContext.episodeIdx
+                );
+                if (existing && !existing.completed && existing.currentTime > 0) {
+                    resumeSeconds = existing.currentTime;
+                }
+                if (existing && existing.duration > 0 && !activePlaybackContext.duration) {
+                    activePlaybackContext.duration = existing.duration;
+                }
+                activePlaybackContext.currentTime = resumeSeconds;
+                activePlaybackContext.completed = false;
+                activePlaybackContext.hasSeeked = false;
+                activePlaybackContext.lastExternalUpdate = 0;
+
+                probeVideoDuration(url).then(dur => {
+                    if (dur > 0 && activePlaybackContext) {
+                        activePlaybackContext.duration = dur;
+                        persistActivePlayback();
+                        updatePlaybackUI();
+                    }
+                });
+            }
+
+            const finalUrl = applyResumeToUrl(url, resumeSeconds);
+            playerIframe.onload = function() {
+                if (activePlaybackContext && resumeSeconds > 0) {
+                    sendSeekToIframe(playerIframe, resumeSeconds);
+                }
+            };
+            playerIframe.src = finalUrl;
             playerView.classList.add('active');
             closeServersModal();
+
+            if (activePlaybackContext) {
+                playbackInterval = setInterval(() => {
+                    if (!activePlaybackContext) return;
+
+                    let directVideoRead = false;
+                    try {
+                        const iframeDoc = playerIframe.contentDocument || (playerIframe.contentWindow && playerIframe.contentWindow.document);
+                        if (iframeDoc) {
+                            const vid = iframeDoc.querySelector('video');
+                            if (vid) {
+                                directVideoRead = true;
+                                if (!activePlaybackContext.hasSeeked && resumeSeconds > 0 && vid.readyState >= 1) {
+                                    vid.currentTime = resumeSeconds;
+                                    activePlaybackContext.hasSeeked = true;
+                                }
+                                if (vid.duration && isFinite(vid.duration) && vid.duration > 0) {
+                                    activePlaybackContext.duration = vid.duration;
+                                }
+                                if (vid.currentTime >= 0 && !vid.paused) {
+                                    activePlaybackContext.currentTime = vid.currentTime;
+                                }
+                                if (vid.ended) {
+                                    activePlaybackContext.completed = true;
+                                    activePlaybackContext.currentTime = 0;
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        // Cross-origin iframe
+                    }
+
+                    if (!directVideoRead && !document.hidden && !activePlaybackContext.completed) {
+                        const recentlyUpdatedByPostMessage = (Date.now() - (activePlaybackContext.lastExternalUpdate || 0)) < 2500;
+                        if (!recentlyUpdatedByPostMessage) {
+                            activePlaybackContext.currentTime += 1;
+                        }
+                    }
+
+                    persistActivePlayback();
+                }, 1000);
+            }
         };
 
         window.closePlayer = function() {
+            if (playbackInterval) {
+                clearInterval(playbackInterval);
+                playbackInterval = null;
+            }
+            if (activePlaybackContext) {
+                persistActivePlayback();
+                updatePlaybackUI();
+                activePlaybackContext = null;
+            }
             const playerView = document.getElementById('playerView');
             const playerIframe = document.getElementById('playerIframe');
+            playerIframe.onload = null;
             playerIframe.src = '';
             playerView.classList.remove('active');
         };
@@ -1705,6 +2694,14 @@ Plantilla de películas y series.
 
         window.playMovie = function() {
             if (currentContent && currentContent.servidores) {
+                activePlaybackContext = {
+                    type: 'movie',
+                    contentId: currentContent.id,
+                    key: getPlaybackKey('movie', currentContent.id),
+                    duration: parseDurationToSeconds(currentContent.duration),
+                    currentTime: 0,
+                    completed: false
+                };
                 showServersMenu(currentContent.servidores);
             } else {
                 alert('No hay link de video disponible para esta película.');
@@ -1714,6 +2711,17 @@ Plantilla de películas y series.
         window.playEpisode = function(seasonNum, index) {
             if (currentContent && currentContent.seasons && currentContent.seasons[seasonNum] && currentContent.seasons[seasonNum][index]) {
                 const ep = currentContent.seasons[seasonNum][index];
+                const epDurHint = parseDurationToSeconds(ep.duration || currentContent.duration);
+                activePlaybackContext = {
+                    type: 'serie',
+                    contentId: currentContent.id,
+                    seasonNum: String(seasonNum),
+                    episodeIdx: index,
+                    key: getPlaybackKey('serie', currentContent.id, seasonNum, index),
+                    duration: epDurHint,
+                    currentTime: 0,
+                    completed: false
+                };
                 showServersMenu(ep.servers);
             } else {
                 alert('No hay link de video disponible para este episodio.');
@@ -1735,11 +2743,14 @@ Plantilla de películas y series.
 
             let episodesHtml = '';
             let totalSeasons = 1;
+            let seasonsKeys = [];
+            let firstSeasonNum = '1';
 
             if (type !== 'movie') {
                 if (content.seasons && Object.keys(content.seasons).length > 0) {
-                    const seasonsKeys = Object.keys(content.seasons).sort((a, b) => parseInt(a) - parseInt(b));
+                    seasonsKeys = Object.keys(content.seasons).sort((a, b) => parseInt(a) - parseInt(b));
                     totalSeasons = seasonsKeys.length;
+                    firstSeasonNum = seasonsKeys[0] || '1';
 
                     episodesHtml = seasonsKeys.map((seasonNum, sIdx) => {
                         const episodesList = content.seasons[seasonNum] || [];
@@ -1747,16 +2758,36 @@ Plantilla de películas y series.
                         const isFirst = sIdx === 0;
 
                         const episodesListHtml = episodesList.map((ep, idx) => {
-                            const epThumb = ep.backdrop
-                                ? `<img class="episode-thumb" src="${getHighQualityBackdropUrl(ep.backdrop)}" alt="Ep ${ep.episode}" onerror="this.style.display='none'">`
-                                : '';
+                            const thumbSrc = getHighQualityBackdropUrl(ep.backdrop) || content.backdrop_url || content.poster_url || 'https://via.placeholder.com/400x225/222/666?text=Ep+' + ep.episode;
+                            const prog = getPlaybackProgress('serie', content.id, seasonNum, idx);
+                            let epProgressText = '';
+                            if (prog && prog.completed) {
+                                epProgressText = 'EN 100%';
+                            } else if (prog && prog.currentTime > 0) {
+                                epProgressText = formatPlaybackTime(prog.currentTime);
+                            }
+
+                            let epDur = ep.duration || (prog && prog.duration > 0 ? formatPlaybackTime(prog.duration) : '') || (content.duration && content.duration !== 'N/A' ? content.duration : '');
+
+                            if (!ep.duration && ep.servers && ep.servers[0] && ep.servers[0].url) {
+                                probeVideoDuration(ep.servers[0].url).then(dur => {
+                                    if (dur > 0) {
+                                        const durEl = document.getElementById(`ep-duration-${seasonNum}-${idx}`);
+                                        if (durEl) durEl.textContent = formatPlaybackTime(dur);
+                                    }
+                                });
+                            }
+
                             return `
-                                <div class="episode-row" onclick="playEpisode('${seasonNum}', ${idx})">
-                                    <div class="episode-left">
-                                        ${epThumb}
-                                        <div class="episode-title">Episodio ${ep.episode}: ${ep.title || 'Sin título'}</div>
+                                <div class="episode-item" onclick="playEpisode('${seasonNum}', ${idx})">
+                                    <div class="episode-thumb">
+                                        <img src="${thumbSrc}" alt="Ep ${ep.episode}" onerror="this.style.display='none'">
+                                        <span class="episode-number-text">Ep ${ep.episode}</span>
                                     </div>
-                                    <div class="play-btn-circle"><i class="material-icons-round">play_arrow</i></div>
+                                    <div class="episode-duration-text">
+                                        <span class="episode-progress-left" id="ep-progress-${seasonNum}-${idx}">${epProgressText}</span>
+                                        <span class="episode-duration-right" id="ep-duration-${seasonNum}-${idx}">${epDur}</span>
+                                    </div>
                                 </div>
                             `;
                         }).join('');
@@ -1766,7 +2797,7 @@ Plantilla de películas y series.
                                 Temporada ${seasonNum}
                                 <i class="material-icons-round">${isFirst ? 'expand_less' : 'expand_more'}</i>
                             </div>
-                            <div class="episodes-panel" id="${panelId}" style="display: ${isFirst ? 'block' : 'none'};">
+                            <div class="episodes-panel" id="${panelId}" style="display: ${isFirst ? 'grid' : 'none'};">
                                 ${episodesListHtml}
                             </div>
                         `;
@@ -1785,13 +2816,36 @@ Plantilla de películas y series.
             const isFav = favs.includes(content.id);
             const genresText = (content.genero && content.genero.length > 0) ? content.genero.join(' • ') : '';
             const trailerBtnHtml = content.trailer
-                ? `<button class="btn-trailer" onclick="openPlayer('${content.trailer}')"><i class="material-icons-round">smart_display</i> VER TRÁILER</button>`
+                ? `<button class="btn-trailer" onclick="openPlayer('${content.trailer}', true)"><i class="material-icons-round">smart_display</i> VER TRÁILER</button>`
                 : '';
+
+            const movieProg = type === 'movie' ? getPlaybackProgress('movie', content.id) : null;
+            const moviePlayBtnText = (movieProg && !movieProg.completed && movieProg.currentTime > 0)
+                ? `Continuar ${formatPlaybackTime(movieProg.currentTime)}`
+                : 'Ver película';
+
+            let seriesPlayBtnText = 'Ver Episodio 1';
+            if (type !== 'movie') {
+                const ep1Prog = getPlaybackProgress('serie', content.id, firstSeasonNum, 0);
+                if (ep1Prog && !ep1Prog.completed && ep1Prog.currentTime > 0) {
+                    seriesPlayBtnText = `Continuar Ep 1 (${formatPlaybackTime(ep1Prog.currentTime)})`;
+                }
+            }
+
+            const flags = getItemFlags(content);
+            const languagesHtml = flags.length > 0
+                ? flags.map(f => `
+                    <span style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 4px; font-size: 13px;">
+                        ${f.flag ? `<img src="${f.flag}" alt="${f.name}" style="width: 18px; height: 12px; object-fit: cover; border-radius: 2px;">` : ''}
+                        <span>${f.name}</span>
+                    </span>
+                `).join('')
+                : '<span style="color: var(--text-secondary);">No especificado</span>';
 
             detailsContainer.innerHTML = `
                 <div class="details-top-bar">
                     <button class="details-icon-btn" onclick="showList()"><i class="material-icons-round">arrow_back</i></button>
-                    <button class="details-icon-btn" onclick="toggleFavorite()"><i class="material-icons-round">${isFav ? 'favorite' : 'favorite_border'}</i></button>
+                    <button class="details-icon-btn" onclick="toggleFavorite()"><i class="material-icons-round">${isFav ? 'check' : 'add'}</i></button>
                 </div>
                 <div class="details-wallpaper" style="background-image: url('${backdrop}')"></div>
 
@@ -1799,8 +2853,6 @@ Plantilla de películas y series.
                     <img class="details-poster" src="${poster}" alt="${content.titulo}">
                     <div class="details-main-info">
                         <div class="details-title">${content.titulo}</div>
-                        ${content.alternative_titles ? `<div style="font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.4;">${content.alternative_titles}</div>` : ''}
-                        ${genresText ? `<div style="font-size: 12px; color: var(--primary-color); margin-top: 6px; font-weight: 500;">${genresText}</div>` : ''}
                     </div>
                 </div>
 
@@ -1813,22 +2865,147 @@ Plantilla de películas y series.
 
                 ${type === 'movie' ? `
                     <div class="movie-play-container">
-                        <button class="btn-full-play" onclick="playMovie()">
-                            <i class="material-icons-round">play_arrow</i> VER PELÍCULA
+                        <button class="btn-full-play" id="movieMainPlayBtn" onclick="playMovie()">
+                            <i class="material-icons-round">play_arrow</i> ${moviePlayBtnText}
                         </button>
                         ${trailerBtnHtml}
                     </div>
+
+                    <div class="details-nav-menu">
+                        <button class="details-nav-tab active" data-tab="sinopsis" onclick="switchDetailsTab('sinopsis')">
+                            Sinopsis
+                        </button>
+                        <button class="details-nav-tab" data-tab="acerca" onclick="switchDetailsTab('acerca')">
+                            Acerca de
+                        </button>
+                    </div>
+
+                    <div class="details-tab-content" id="details-tab-sinopsis">
+                        <p class="details-synopsis">${content.sinopsis || 'Sin descripción disponible.'}</p>
+                    </div>
+
+                    <div class="details-tab-content" id="details-tab-acerca" style="display: none;">
+                        <div class="details-about-container">
+                            <div class="about-row">
+                                <span class="about-label">Título</span>
+                                <span class="about-value">${content.titulo || 'N/A'}</span>
+                            </div>
+                            ${content.alternative_titles ? `
+                            <div class="about-row">
+                                <span class="about-label">Títulos alternativos</span>
+                                <span class="about-value">${content.alternative_titles}</span>
+                            </div>` : ''}
+                            <div class="about-row">
+                                <span class="about-label">Géneros</span>
+                                <span class="about-value">${genresText || 'N/A'}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Año</span>
+                                <span class="about-value">${releaseYear}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Duración</span>
+                                <span class="about-value">${duration}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Rating</span>
+                                <span class="about-value">${rating !== 'N/A' ? `${rating} ★` : 'N/A'}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Idiomas</span>
+                                <div class="about-value" style="display: flex; flex-wrap: wrap; gap: 6px;">${languagesHtml}</div>
+                            </div>
+                        </div>
+                    </div>
                 ` : `
-                    ${trailerBtnHtml ? `<div class="movie-play-container" style="padding-bottom: 0;">${trailerBtnHtml}</div>` : ''}
-                    <h3 class="details-section-title">Episodios</h3>
-                    <div class="episodes-container">
-                        ${episodesHtml}
+                    <div class="movie-play-container">
+                        <button class="btn-full-play" id="serieMainPlayBtn" onclick="playEpisode('${firstSeasonNum}', 0)">
+                            <i class="material-icons-round">play_arrow</i> ${seriesPlayBtnText}
+                        </button>
+                        ${trailerBtnHtml}
+                    </div>
+
+                    <div class="details-nav-menu">
+                        <button class="details-nav-tab active" data-tab="episodios" onclick="switchDetailsTab('episodios')">
+                            Episodios
+                        </button>
+                        <button class="details-nav-tab" data-tab="sinopsis" onclick="switchDetailsTab('sinopsis')">
+                            Sinopsis
+                        </button>
+                        <button class="details-nav-tab" data-tab="acerca" onclick="switchDetailsTab('acerca')">
+                            Acerca de
+                        </button>
+                    </div>
+
+                    <div class="details-tab-content" id="details-tab-episodios">
+                        <div class="episodes-container">
+                            ${episodesHtml}
+                        </div>
+                    </div>
+
+                    <div class="details-tab-content" id="details-tab-sinopsis" style="display: none;">
+                        <p class="details-synopsis">${content.sinopsis || 'Sin descripción disponible.'}</p>
+                    </div>
+
+                    <div class="details-tab-content" id="details-tab-acerca" style="display: none;">
+                        <div class="details-about-container">
+                            <div class="about-row">
+                                <span class="about-label">Título</span>
+                                <span class="about-value">${content.titulo || 'N/A'}</span>
+                            </div>
+                            ${content.alternative_titles ? `
+                            <div class="about-row">
+                                <span class="about-label">Títulos alternativos</span>
+                                <span class="about-value">${content.alternative_titles}</span>
+                            </div>` : ''}
+                            <div class="about-row">
+                                <span class="about-label">Temporadas</span>
+                                <span class="about-value">${totalSeasons} Temporada${totalSeasons !== 1 ? 's' : ''}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Géneros</span>
+                                <span class="about-value">${genresText || 'N/A'}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Año</span>
+                                <span class="about-value">${releaseYear}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Duración</span>
+                                <span class="about-value">${duration}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Rating</span>
+                                <span class="about-value">${rating !== 'N/A' ? `${rating} ★` : 'N/A'}</span>
+                            </div>
+                            <div class="about-row">
+                                <span class="about-label">Idiomas</span>
+                                <div class="about-value" style="display: flex; flex-wrap: wrap; gap: 6px;">${languagesHtml}</div>
+                            </div>
+                        </div>
                     </div>
                 `}
-
-                <h3 class="details-section-title">Sinopsis</h3>
-                <p class="details-synopsis">${content.sinopsis || 'Sin descripción disponible.'}</p>
             `;
+        };
+
+        window.switchDetailsTab = function(tabName) {
+            const tabs = document.querySelectorAll('.details-nav-tab');
+            tabs.forEach(t => {
+                if (t.getAttribute('data-tab') === tabName) {
+                    t.classList.add('active');
+                } else {
+                    t.classList.remove('active');
+                }
+            });
+
+            const panels = document.querySelectorAll('.details-tab-content');
+            panels.forEach(p => {
+                if (p.id === `details-tab-${tabName}`) {
+                    p.style.display = 'block';
+                } else {
+                    p.style.display = 'none';
+                }
+            });
         };
 
         function renderGrid() {
@@ -1904,7 +3081,7 @@ Plantilla de películas y series.
                 return;
             }
 
-            contentGrid.innerHTML = '<div class="loader"><i class="material-icons-round">refresh</i></div>';
+            contentGrid.innerHTML = renderSkeletons(16);
 
             try {
                 // Fetch ALL entries from Blogger API v3
@@ -1954,8 +3131,8 @@ Plantilla de películas y series.
                             // Parse pure JS post data
                             let jsData = {};
                             try {
-                                const scriptEl = tempDiv.querySelector('script');
-                                const rawCode = (scriptEl ? scriptEl.textContent : tempDiv.textContent).replace(/\u00a0/g, ' ').trim();
+                                const scripts = Array.from(tempDiv.querySelectorAll('script'));
+                                const rawCode = (scripts.length > 0 ? scripts.map(s => s.textContent).join('\n') : tempDiv.textContent).replace(/<!--[\s\S]*?-->/g, '').replace(/\u00a0/g, ' ').trim();
                                 if (rawCode) {
                                     jsData = new Function(`
                                         ${rawCode};
@@ -1973,12 +3150,36 @@ Plantilla de películas y series.
                                             year: typeof year !== 'undefined' ? year : undefined,
                                             seasons: typeof seasons !== 'undefined' ? seasons : (typeof seriesMeta !== 'undefined' && seriesMeta ? seriesMeta.seasons : undefined),
                                             episodes: typeof episodes !== 'undefined' ? episodes : undefined,
-                                            servers: typeof servers !== 'undefined' ? servers : (typeof videoServers !== 'undefined' ? videoServers : undefined)
+                                            servers: typeof servers !== 'undefined' ? servers : (typeof videoServers !== 'undefined' ? videoServers : (typeof _SV_LINKS !== 'undefined' ? _SV_LINKS : undefined))
                                         };
                                     `)() || {};
                                 }
                             } catch (e) {
                                 console.warn("Error parsing JS data for post " + (entry.title || ''), e);
+                            }
+
+                            const postDetailsUl = tempDiv.querySelector('ul.post-details');
+                            if (postDetailsUl) {
+                                const getLiAttr = (attr) => { const li = postDetailsUl.querySelector(`li[${attr}]`); return li ? (li.getAttribute(attr) || '').trim() : ''; };
+                                if (!jsData.title) jsData.title = getLiAttr('data') || getLiAttr('data-title') || undefined;
+                                if (!jsData.alternative_titles) jsData.alternative_titles = getLiAttr('data-original-title') || undefined;
+                                if (!jsData.duration) jsData.duration = getLiAttr('data-duartion') || getLiAttr('data-duration') || undefined;
+                                if (!jsData.year) jsData.year = getLiAttr('data-year') || undefined;
+                                if (!jsData.genres) jsData.genres = getLiAttr('data-genres') || undefined;
+                                if (!jsData.backdrop) jsData.backdrop = (postDetailsUl.getAttribute('data-backdrop') || '').trim() || undefined;
+                                if (!jsData.rating) jsData.rating = (postDetailsUl.getAttribute('data-imdb') || '').trim() || undefined;
+                                const ytId = (postDetailsUl.getAttribute('data-youtube-id') || '').trim();
+                                if (!jsData.trailer && ytId) jsData.trailer = ytId.startsWith('http') ? ytId : `https://www.youtube.com/embed/${ytId}`;
+                            }
+                            const tmdbSynEl = tempDiv.querySelector('#tmdb-synopsis');
+                            if (!jsData.sinopsis && tmdbSynEl && tmdbSynEl.textContent.trim()) { jsData.sinopsis = tmdbSynEl.textContent.trim(); }
+                            if (Array.isArray(jsData.servers)) {
+                                jsData.servers = jsData.servers.map(s => ({
+                                    server: s.server || s.name || 'Servidor',
+                                    language: String(s.language || s.lang || '1'),
+                                    type: s.type || s.quality || 'embed',
+                                    url: String(s.url || '').startsWith('//') ? ('https:' + s.url) : String(s.url || '')
+                                }));
                             }
 
                             if (jsData.category) {
@@ -2246,6 +3447,713 @@ Plantilla de películas y series.
                 searchGrid.classList.add('size-small');
                 currentPosterSizeText.textContent = 'Pequeñas';
             }
+        }
+
+        // ==========================================
+        // Sistema de Usuarios Anónimos y Firebase Auth / Firestore
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNe7QUTKEeH1MVgKNZ1_16L3qxMnRXaU4",
+            authDomain: "iskisskr.firebaseapp.com",
+            projectId: "iskisskr",
+            storageBucket: "iskisskr.firebasestorage.app",
+            messagingSenderId: "492636740639",
+            appId: "1:492636740639:web:41e0751cb15b48baf2892a",
+            measurementId: "G-68DGQSB0Y8"
+        };
+
+        let firebaseAuth = null;
+        let firebaseDb = null;
+        let googleAuthProvider = null;
+        let pendingPasswordUpgrade = false;
+
+        try {
+            if (typeof firebase !== 'undefined') {
+                if (!firebase.apps.length) {
+                    firebase.initializeApp(firebaseConfig);
+                }
+                firebaseAuth = firebase.auth();
+                firebaseAuth.languageCode = 'es';
+                googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+                if (typeof firebase.firestore === 'function') {
+                    firebaseDb = firebase.firestore();
+                    try {
+                        firebaseDb.settings({ experimentalAutoDetectLongPolling: true, merge: true });
+                    } catch (e) {}
+                }
+            }
+        } catch (err) {
+            console.error('Error al inicializar Firebase:', err);
+        }
+
+        function withFirestoreTimeout(promise, ms = 3500) {
+            return Promise.race([
+                promise,
+                new Promise((_, reject) => setTimeout(() => reject(new Error('FIRESTORE_TIMEOUT')), ms))
+            ]);
+        }
+
+        // Generador de datos para usuarios anónimos (ej: User_8C41 + avatar DiceBear bottts en svg)
+        function generateRandomAnonUsername() {
+            const hexChars = '0123456789ABCDEF';
+            let code = '';
+            for (let i = 0; i < 4; i++) {
+                code += hexChars.charAt(Math.floor(Math.random() * hexChars.length));
+            }
+            return `User_${code}`;
+        }
+
+        function getDiceBearUrl(seed) {
+            return `https://api.dicebear.com/9.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
+        }
+
+        function getFallbackAvatarSvg(seed) {
+            const colors = ['#bb86fc', '#03dac6', '#cf6679', '#ffb74d', '#4fc3f7', '#ba68c8'];
+            let hash = 0;
+            const str = String(seed || 'User');
+            for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            const color = colors[Math.abs(hash) % colors.length];
+            const initial = (str.replace('User_', '') || str).charAt(0) || 'U';
+            return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="${encodeURIComponent(color)}"/><text x="50%" y="54%" font-family="sans-serif" font-weight="bold" font-size="28" fill="%23ffffff" dominant-baseline="middle" text-anchor="middle">${initial}</text></svg>`;
+        }
+
+        let currentLocalProfile = null;
+
+        function getOrCreateLocalAnonUser(force = false) {
+            if (!force) {
+                try {
+                    const raw = safeStorage.getItem('kisskr_anon_user');
+                    if (raw) {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && parsed.usuario && typeof parsed.usuario === 'string' && parsed.usuario.startsWith('User_') && parsed.fotoPerfil && !parsed.fotoPerfil.includes('udrop.com') && !parsed.fotoPerfil.includes('10.x')) {
+                            return parsed;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Error leyendo usuario anónimo local:', e);
+                }
+            }
+
+            const usuario = generateRandomAnonUsername();
+            const fotoPerfil = getDiceBearUrl(usuario);
+            const anonUser = { usuario, fotoPerfil };
+            try {
+                safeStorage.setItem('kisskr_anon_user', JSON.stringify(anonUser));
+            } catch (e) {}
+            return anonUser;
+        }
+
+        // Función que asigna un usuario de manera aleatoria
+        function assignRandomUser(force = false) {
+            const anonUser = getOrCreateLocalAnonUser(force);
+            currentLocalProfile = anonUser;
+            if (typeof updateUserUI === 'function') {
+                try {
+                    updateUserUI(firebaseAuth && firebaseAuth.currentUser && !pendingPasswordUpgrade ? firebaseAuth.currentUser : null);
+                } catch (e) {
+                    console.warn('updateUserUI deferred:', e);
+                }
+            }
+            return anonUser;
+        }
+        window.assignRandomUser = assignRandomUser;
+
+        // Inicializar datos de usuario anónimo inmediatamente al ingresar
+        currentLocalProfile = getOrCreateLocalAnonUser(false);
+
+        const DEFAULT_AVATAR_URL = currentLocalProfile.fotoPerfil;
+        const authModalOverlay = document.getElementById('authModalOverlay');
+        const authModalTitle = document.getElementById('authModalTitle');
+        const authModalCloseBtn = document.getElementById('authModalCloseBtn');
+        const authTabs = document.getElementById('authTabs');
+        const authAlert = document.getElementById('authAlert');
+        const signInForm = document.getElementById('signInForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const updatePasswordForm = document.getElementById('updatePasswordForm');
+        const googleAuthSection = document.getElementById('googleAuthSection');
+        const authMenuBtn = document.getElementById('authMenuBtn');
+
+        function isGoogleUser(user) {
+            if (!user || !Array.isArray(user.providerData)) return false;
+            return user.providerData.some(p => p && p.providerId === 'google.com');
+        }
+
+        // Sincronizar datos del usuario y favoritos con Firebase (Firestore + Auth Profile)
+        let firestoreAvailable = true;
+        async function syncUserWithFirebase(user) {
+            if (!user || pendingPasswordUpgrade) return;
+
+            const localAnon = getOrCreateLocalAnonUser();
+            const localFavs = getFavorites();
+            const googleAccount = isGoogleUser(user);
+
+            // Actualizar perfil local e interfaz de inmediato sin esperar a Firestore
+            if (googleAccount) {
+                currentLocalProfile = {
+                    usuario: user.displayName || (user.email ? user.email.split('@')[0] : localAnon.usuario),
+                    fotoPerfil: user.photoURL || localAnon.fotoPerfil
+                };
+            } else {
+                currentLocalProfile = {
+                    usuario: user.displayName || localAnon.usuario,
+                    fotoPerfil: user.photoURL || localAnon.fotoPerfil
+                };
+            }
+            updateUserUI(user);
+
+            let remoteData = null;
+            if (firebaseDb && firestoreAvailable) {
+                try {
+                    const docRef = firebaseDb.collection('users').doc(user.uid);
+                    const snap = await withFirestoreTimeout(docRef.get(), 3500);
+                    if (snap && snap.exists) {
+                        remoteData = snap.data() || null;
+                    }
+                } catch (err) {
+                    firestoreAvailable = false;
+                }
+            }
+
+            const remoteFavs = (remoteData && Array.isArray(remoteData.favoritos)) ? remoteData.favoritos : [];
+            const mergedFavs = Array.from(new Set([...remoteFavs, ...localFavs]));
+            safeStorage.setItem('favoritos', JSON.stringify(mergedFavs));
+            updateFavoriteButton();
+            if (currentType === 'favoritos') {
+                renderGrid();
+            }
+
+            if (googleAccount) {
+                // Si inicia sesión con Google: se guarda en Firebase (usuario, favoritos)
+                const usuario = user.displayName || (remoteData && remoteData.usuario) || (user.email ? user.email.split('@')[0] : localAnon.usuario);
+                currentLocalProfile = {
+                    usuario: usuario,
+                    fotoPerfil: user.photoURL || localAnon.fotoPerfil
+                };
+
+                if (firebaseDb && firestoreAvailable) {
+                    withFirestoreTimeout(
+                        firebaseDb.collection('users').doc(user.uid).set({
+                            usuario: usuario,
+                            favoritos: mergedFavs
+                        }, { merge: true }),
+                        3500
+                    ).catch(() => {});
+                }
+            } else {
+                // Si inicia sesión con correo y contraseña: se guarda en Firebase (usuario, foto de perfil, favoritos)
+                const usuario = (remoteData && remoteData.usuario) || user.displayName || localAnon.usuario;
+                const fotoPerfil = (remoteData && remoteData.fotoPerfil) || user.photoURL || localAnon.fotoPerfil;
+
+                currentLocalProfile = { usuario, fotoPerfil };
+                safeStorage.setItem('kisskr_anon_user', JSON.stringify(currentLocalProfile));
+
+                if (user.displayName !== usuario || user.photoURL !== fotoPerfil) {
+                    try {
+                        await user.updateProfile({
+                            displayName: usuario,
+                            photoURL: fotoPerfil
+                        });
+                    } catch (err) {}
+                }
+
+                if (firebaseDb && firestoreAvailable) {
+                    withFirestoreTimeout(
+                        firebaseDb.collection('users').doc(user.uid).set({
+                            usuario: usuario,
+                            fotoPerfil: fotoPerfil,
+                            favoritos: mergedFavs
+                        }, { merge: true }),
+                        3500
+                    ).catch(() => {});
+                }
+            }
+
+            updateUserUI(user);
+        }
+
+        window.syncFavoritesToFirebase = async function(favsList) {
+            const favs = Array.isArray(favsList) ? favsList : getFavorites();
+            if (!firebaseAuth || !firebaseAuth.currentUser || !firebaseDb || !firestoreAvailable || pendingPasswordUpgrade) return;
+            const user = firebaseAuth.currentUser;
+            const googleAccount = isGoogleUser(user);
+            const payload = googleAccount
+                ? {
+                    usuario: user.displayName || currentLocalProfile.usuario || getOrCreateLocalAnonUser().usuario,
+                    favoritos: favs
+                }
+                : {
+                    usuario: currentLocalProfile.usuario || user.displayName || getOrCreateLocalAnonUser().usuario,
+                    fotoPerfil: currentLocalProfile.fotoPerfil || user.photoURL || getOrCreateLocalAnonUser().fotoPerfil,
+                    favoritos: favs
+                };
+
+            withFirestoreTimeout(
+                firebaseDb.collection('users').doc(user.uid).set(payload, { merge: true }),
+                3500
+            ).catch(() => {});
+        };
+
+        // Validación de requisitos de contraseña según login_request.txt:
+        // - Exigir caracteres en mayúscula
+        // - Exigir caracteres en minúscula
+        // - Exigir caracteres especiales
+        // - Exigir caracteres numéricos
+        // - Longitud mínima de la contraseña de 8 caracteres
+        function validatePasswordRequirements(password) {
+            const pwd = String(password || '');
+            const checks = {
+                length: pwd.length >= 8,
+                upper: /[A-Z]/.test(pwd),
+                lower: /[a-z]/.test(pwd),
+                number: /[0-9]/.test(pwd),
+                special: /[^A-Za-z0-9]/.test(pwd)
+            };
+            const valid = checks.length && checks.upper && checks.lower && checks.number && checks.special;
+            return { valid, checks };
+        }
+
+        function updatePasswordChecklistUI(containerId, password) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const { checks } = validatePasswordRequirements(password);
+            Object.keys(checks).forEach(key => {
+                const item = container.querySelector(`[data-req="${key}"]`);
+                if (item) {
+                    const isMet = checks[key];
+                    item.classList.toggle('met', isMet);
+                    const icon = item.querySelector('i');
+                    if (icon) {
+                        icon.textContent = isMet ? 'check_circle' : 'radio_button_unchecked';
+                    }
+                }
+            });
+        }
+
+        const newPasswordInput = document.getElementById('new-password');
+        if (newPasswordInput) {
+            newPasswordInput.addEventListener('input', (e) => {
+                updatePasswordChecklistUI('signupPwdReqs', e.target.value);
+            });
+        }
+
+        const updateNewPasswordInput = document.getElementById('update-new-password');
+        if (updateNewPasswordInput) {
+            updateNewPasswordInput.addEventListener('input', (e) => {
+                updatePasswordChecklistUI('updatePwdReqs', e.target.value);
+            });
+        }
+
+        window.togglePasswordVisibility = function(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (icon) icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                if (icon) icon.textContent = 'visibility';
+            }
+        };
+
+        function showAuthAlert(message, type = 'error') {
+            if (!authAlert) return;
+            if (!message) {
+                authAlert.className = 'auth-alert';
+                authAlert.textContent = '';
+                return;
+            }
+            authAlert.className = `auth-alert ${type}`;
+            authAlert.textContent = message;
+        }
+
+        let appToastTimer = null;
+        let appToastResetTimer = null;
+        function showAppToast(message, durationMs = 2800) {
+            const toast = document.getElementById('loadingToast');
+            if (!toast) return;
+            const loader = toast.querySelector('.toast-loader');
+            const span = toast.querySelector('span');
+            if (loader) loader.style.display = 'none';
+            if (span) span.textContent = message;
+
+            if (appToastTimer) clearTimeout(appToastTimer);
+            if (appToastResetTimer) clearTimeout(appToastResetTimer);
+
+            toast.classList.add('show');
+            appToastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+                appToastResetTimer = setTimeout(() => {
+                    if (loader) loader.style.display = '';
+                    if (span) span.textContent = 'Cargando servidores...';
+                }, 300);
+            }, durationMs);
+        }
+
+        window.switchAuthTab = function(tabName) {
+            if (pendingPasswordUpgrade) return;
+            showAuthAlert('');
+            document.querySelectorAll('.auth-tab').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-auth-tab') === tabName);
+            });
+
+            authTabs.style.display = 'flex';
+            googleAuthSection.style.display = 'block';
+            authModalCloseBtn.style.display = 'flex';
+            updatePasswordForm.style.display = 'none';
+
+            if (tabName === 'signup') {
+                authModalTitle.textContent = 'Crear Cuenta';
+                signInForm.style.display = 'none';
+                signUpForm.style.display = 'flex';
+            } else {
+                authModalTitle.textContent = 'Iniciar Sesión';
+                signUpForm.style.display = 'none';
+                signInForm.style.display = 'flex';
+            }
+        };
+
+        function showForcedPasswordUpdateView() {
+            pendingPasswordUpgrade = true;
+            authModalTitle.textContent = 'Actualizar Contraseña';
+            authTabs.style.display = 'none';
+            signInForm.style.display = 'none';
+            signUpForm.style.display = 'none';
+            googleAuthSection.style.display = 'none';
+            authModalCloseBtn.style.display = 'none';
+            updatePasswordForm.style.display = 'flex';
+            if (updateNewPasswordInput) {
+                updateNewPasswordInput.value = '';
+                updatePasswordChecklistUI('updatePwdReqs', '');
+            }
+            showAuthAlert(
+                'Por motivos de seguridad, es obligatorio actualizar tu contraseña durante el acceso para cumplir con todos los requisitos.',
+                'info'
+            );
+            authModalOverlay.classList.add('active');
+        }
+
+        window.openAuthModal = function(initialTab = 'signin') {
+            toggleSidebar(false);
+            moreModal.classList.remove('active');
+            if (pendingPasswordUpgrade) {
+                showForcedPasswordUpdateView();
+                return;
+            }
+            switchAuthTab(initialTab);
+            authModalOverlay.classList.add('active');
+        };
+
+        window.closeAuthModal = function() {
+            if (pendingPasswordUpgrade) return;
+            authModalOverlay.classList.remove('active');
+            showAuthAlert('');
+        };
+
+        authModalOverlay.addEventListener('click', (e) => {
+            if (e.target === authModalOverlay && !pendingPasswordUpgrade) {
+                closeAuthModal();
+            }
+        });
+
+        function formatFirebaseAuthError(error) {
+            const code = (error && error.code) ? String(error.code) : '';
+            const msg = (error && error.message) ? String(error.message) : '';
+
+            if (code === 'auth/invalid-email') return 'El formato del correo electrónico no es válido.';
+            if (code === 'auth/user-disabled') return 'Esta cuenta de usuario ha sido deshabilitada.';
+            if (code === 'auth/user-not-found' || code === 'auth/invalid-credential' || code === 'auth/wrong-password') {
+                return 'Correo electrónico o contraseña incorrectos.';
+            }
+            if (code === 'auth/email-already-in-use') return 'Este correo electrónico ya está registrado. Inicia sesión.';
+            if (code === 'auth/weak-password' || code === 'auth/password-does-not-meet-requirements' || msg.includes('PASSWORD_DOES_NOT_MEET_REQUIREMENTS')) {
+                return 'La contraseña no cumple con los requisitos: mínimo 8 caracteres, mayúscula, minúscula, número y carácter especial.';
+            }
+            if (code === 'auth/too-many-requests') return 'Demasiados intentos fallidos. Inténtalo de nuevo más tarde.';
+            if (code === 'auth/popup-closed-by-user') return 'Se cerró la ventana de acceso con Google antes de completar el proceso.';
+            if (code === 'auth/network-request-failed') return 'Error de red. Verifica tu conexión a internet.';
+            if (code === 'auth/requires-recent-login') return 'Por seguridad, vuelve a iniciar sesión para cambiar tu contraseña.';
+            return msg || 'Ocurrió un error en la autenticación.';
+        }
+
+        // Inicio de sesión con Correo y Contraseña
+        signInForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!firebaseAuth) {
+                showAuthAlert('Firebase Auth no está disponible.');
+                return;
+            }
+
+            const email = document.getElementById('signin-email').value.trim();
+            const password = document.getElementById('current-password').value;
+            const submitBtn = document.getElementById('signInSubmitBtn');
+
+            showAuthAlert('');
+            submitBtn.disabled = true;
+
+            try {
+                const cred = await firebaseAuth.signInWithEmailAndPassword(email, password);
+
+                // Forzar la actualización durante el acceso si la contraseña actual no cumple los requisitos
+                const validation = validatePasswordRequirements(password);
+                if (!validation.valid) {
+                    showForcedPasswordUpdateView();
+                } else {
+                    signInForm.reset();
+                    closeAuthModal();
+                    if (cred && cred.user) {
+                        updateUserUI(cred.user);
+                        syncUserWithFirebase(cred.user);
+                    }
+                    showAppToast('Sesión iniciada correctamente');
+                }
+            } catch (error) {
+                console.error('Error en inicio de sesión:', error);
+                showAuthAlert(formatFirebaseAuthError(error), 'error');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Registro con Correo y Contraseña
+        signUpForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!firebaseAuth) {
+                showAuthAlert('Firebase Auth no está disponible.');
+                return;
+            }
+
+            const email = document.getElementById('signup-email').value.trim();
+            const password = document.getElementById('new-password').value;
+            const submitBtn = document.getElementById('signUpSubmitBtn');
+
+            const validation = validatePasswordRequirements(password);
+            if (!validation.valid) {
+                showAuthAlert('La contraseña debe tener al menos 8 caracteres e incluir mayúsculas, minúsculas, números y caracteres especiales.', 'error');
+                return;
+            }
+
+            showAuthAlert('');
+            submitBtn.disabled = true;
+
+            try {
+                const cred = await firebaseAuth.createUserWithEmailAndPassword(email, password);
+                signUpForm.reset();
+                updatePasswordChecklistUI('signupPwdReqs', '');
+                closeAuthModal();
+                if (cred && cred.user) {
+                    updateUserUI(cred.user);
+                    syncUserWithFirebase(cred.user);
+                }
+                showAppToast('Cuenta creada e iniciada correctamente');
+            } catch (error) {
+                console.error('Error en registro:', error);
+                showAuthAlert(formatFirebaseAuthError(error), 'error');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Actualizar contraseña forzada durante el acceso
+        updatePasswordForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!firebaseAuth || !firebaseAuth.currentUser) {
+                pendingPasswordUpgrade = false;
+                closeAuthModal();
+                return;
+            }
+
+            const newPassword = document.getElementById('update-new-password').value;
+            const submitBtn = document.getElementById('updatePwdSubmitBtn');
+
+            const validation = validatePasswordRequirements(newPassword);
+            if (!validation.valid) {
+                showAuthAlert('La nueva contraseña debe cumplir todos los requisitos indicados abajo.', 'error');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            try {
+                await firebaseAuth.currentUser.updatePassword(newPassword);
+                pendingPasswordUpgrade = false;
+                updatePasswordForm.reset();
+                updatePasswordChecklistUI('updatePwdReqs', '');
+                closeAuthModal();
+                updateUserUI(firebaseAuth.currentUser);
+                syncUserWithFirebase(firebaseAuth.currentUser);
+                showAppToast('Contraseña actualizada correctamente');
+            } catch (error) {
+                console.error('Error al actualizar contraseña:', error);
+                showAuthAlert(formatFirebaseAuthError(error), 'error');
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+
+        window.cancelForcedPasswordUpdate = async function() {
+            pendingPasswordUpgrade = false;
+            if (firebaseAuth) {
+                await firebaseAuth.signOut();
+            }
+            closeAuthModal();
+            showAppToast('Sesión cerrada');
+        };
+
+        // Acceso con Google
+        window.signInWithGoogle = async function() {
+            if (!firebaseAuth || !googleAuthProvider) {
+                showAuthAlert('Firebase Auth no está disponible.');
+                return;
+            }
+
+            showAuthAlert('');
+            const googleBtn = document.getElementById('googleSignInBtn');
+            if (googleBtn) googleBtn.disabled = true;
+
+            try {
+                const cred = await firebaseAuth.signInWithPopup(googleAuthProvider);
+                closeAuthModal();
+                if (cred && cred.user) {
+                    updateUserUI(cred.user);
+                    syncUserWithFirebase(cred.user);
+                }
+                showAppToast('Sesión iniciada con Google');
+            } catch (error) {
+                if (error && (error.code === 'auth/popup-blocked' || error.code === 'auth/operation-not-supported-in-this-environment')) {
+                    try {
+                        await firebaseAuth.signInWithRedirect(googleAuthProvider);
+                        return;
+                    } catch (redirErr) {
+                        showAuthAlert(formatFirebaseAuthError(redirErr), 'error');
+                    }
+                } else {
+                    console.error('Error en Google Sign-In:', error);
+                    showAuthAlert(formatFirebaseAuthError(error), 'error');
+                }
+            } finally {
+                if (googleBtn) googleBtn.disabled = false;
+            }
+        };
+
+        // Recuperación de contraseña
+        window.handleForgotPassword = async function() {
+            if (!firebaseAuth) return;
+            const emailInput = document.getElementById('signin-email');
+            const email = emailInput ? emailInput.value.trim() : '';
+
+            if (!email) {
+                showAuthAlert('Ingresa tu correo electrónico en el campo de arriba para enviarte el enlace de recuperación.', 'info');
+                if (emailInput) emailInput.focus();
+                return;
+            }
+
+            try {
+                await firebaseAuth.sendPasswordResetEmail(email);
+                showAuthAlert(`Se ha enviado un correo a ${email} para restablecer tu contraseña.`, 'success');
+            } catch (error) {
+                showAuthAlert(formatFirebaseAuthError(error), 'error');
+            }
+        };
+
+        function updateUserUI(user) {
+            const avatarEl = document.getElementById('sidebarUserAvatar');
+            const nameEl = document.getElementById('sidebarUserName');
+            const emailEl = document.getElementById('sidebarUserEmail');
+            const authIcon = document.getElementById('sidebarAuthIcon');
+            const authText = document.getElementById('sidebarAuthText');
+            const authBtn = document.getElementById('authMenuBtn');
+            const anonUser = getOrCreateLocalAnonUser();
+
+            if (user && !pendingPasswordUpgrade) {
+                const googleAccount = typeof isGoogleUser === 'function' && isGoogleUser(user);
+                const displayName = googleAccount
+                    ? (user.displayName || (user.email ? user.email.split('@')[0] : anonUser.usuario))
+                    : ((currentLocalProfile && currentLocalProfile.usuario) || user.displayName || anonUser.usuario);
+                const email = user.email || 'Cuenta verificada';
+                const avatarSrc = googleAccount
+                    ? (user.photoURL || anonUser.fotoPerfil)
+                    : ((currentLocalProfile && currentLocalProfile.fotoPerfil) || user.photoURL || anonUser.fotoPerfil);
+
+                if (avatarEl) {
+                    avatarEl.referrerPolicy = 'no-referrer';
+                    avatarEl.src = avatarSrc;
+                    avatarEl.onerror = function() { this.src = getFallbackAvatarSvg(displayName); };
+                }
+                if (nameEl) nameEl.textContent = displayName;
+                if (emailEl) {
+                    emailEl.textContent = email;
+                    emailEl.style.display = 'block';
+                }
+                if (authIcon) authIcon.textContent = 'logout';
+                if (authText) authText.textContent = 'Cerrar sesión';
+                if (authBtn) authBtn.textContent = `Cerrar sesión (${displayName})`;
+            } else {
+                if (avatarEl) {
+                    avatarEl.referrerPolicy = 'no-referrer';
+                    avatarEl.src = anonUser.fotoPerfil;
+                    avatarEl.onerror = function() { this.src = getFallbackAvatarSvg(anonUser.usuario); };
+                }
+                if (nameEl) nameEl.textContent = anonUser.usuario;
+                if (emailEl) {
+                    emailEl.textContent = '';
+                    emailEl.style.display = 'none';
+                }
+                if (authIcon) authIcon.textContent = 'login';
+                if (authText) authText.textContent = 'Iniciar sesión / Registro';
+                if (authBtn) authBtn.textContent = 'Iniciar sesión';
+            }
+        }
+
+        function handleAuthMenuClick() {
+            const mModal = document.getElementById('moreModal');
+            if (mModal) mModal.classList.remove('active');
+            if (firebaseAuth && firebaseAuth.currentUser && !pendingPasswordUpgrade) {
+                if (confirm(`¿Deseas cerrar la sesión de ${firebaseAuth.currentUser.email || 'tu cuenta'}?`)) {
+                    firebaseAuth.signOut().then(() => {
+                        toggleSidebar(false);
+                        showAppToast('Sesión cerrada');
+                    });
+                }
+            } else {
+                openAuthModal('signin');
+            }
+        }
+        window.handleAuthMenuClick = handleAuthMenuClick;
+        window.handleSidebarAuthAction = handleAuthMenuClick;
+
+        // Mostrar los datos del usuario asignado aleatoriamente de inmediato al cargar
+        updateUserUI(null);
+
+        window.handleSidebarHeaderClick = function() {
+            if (firebaseAuth && firebaseAuth.currentUser && !pendingPasswordUpgrade) {
+                if (confirm(`¿Deseas cerrar la sesión de ${firebaseAuth.currentUser.email || 'tu cuenta'}?`)) {
+                    firebaseAuth.signOut().then(() => {
+                        toggleSidebar(false);
+                        showAppToast('Sesión cerrada');
+                    });
+                }
+            } else {
+                const newUser = assignRandomUser(true);
+                showAppToast(`Nuevo usuario asignado: ${newUser.usuario}`);
+            }
+        };
+
+        if (authMenuBtn) {
+            authMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.handleAuthMenuClick();
+            });
+        }
+
+        if (firebaseAuth) {
+            firebaseAuth.onAuthStateChanged((user) => {
+                if (user && !pendingPasswordUpgrade) {
+                    updateUserUI(user);
+                    syncUserWithFirebase(user);
+                } else {
+                    updateUserUI(null);
+                }
+            });
         }
     </script>
 </body>
